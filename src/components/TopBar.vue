@@ -62,6 +62,11 @@ export default {
         height:40px;
         border-radius: 10px;
         border:none;
+        background-image: url('../assets/search.png');
+        background-size: 35px;
+        background-position: 3px 3px;
+        background-repeat: no-repeat;
+        padding-left: 45px;
     }
 
     .topbar-newdeal {
