@@ -1,5 +1,40 @@
 <template>
-    
+    <div class="deal-summary">
+        <div class="deal-summary-container">
+            <div class="deal-summary-image">
+                <img src="../assets/switch.jpg">
+            </div>
+            <div class="deal-summary-informations">
+                <div class="deal-summary-title">
+                    <span>Red Dead Redemption 2 : Bonus Précommande</span>
+                </div>
+                <div class="deal-summary-price">
+                    <span class="price">65,99€</span> <span class="shipping">+5,99€ | sur micromania.fr</span> 
+                </div>
+                <div class="deal-summary-description truncate">
+                    <span>Amérique, 1899. L'ère de l'Ouest sauvage touche à sa fin alors que les autorités ont décidé de traquer les dernières bandes de hors-la- loi qui sévissent encore. Ceux qui ne se rendent pas ou résistent sont tués.</span> 
+                </div>
+                <div class="deal-summary-poster">
+                    <img src="../assets/julien.jpg" alt=""> <span><b>Julien</b> - Publié il y a 3 jours - Expire le 05/02/2019</span>
+                </div>
+                <hr>
+                <div class="col-md-12">
+                    <div class="deal-summary-votes col-md-6">
+                        <div class="vote-button">
+                            <span class="plus">+</span>
+                        </div>
+                        <span>183</span>
+                        <div class="vote-button">
+                            <span class="minus">-</span>
+                        </div>
+                    </div>
+                    <div class="expand-button">
+                        <span>Voir plus...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -9,5 +44,157 @@ export default {
 </script>
 
 <style>
+    .deal-summary {
+        background-color: white;
+        height: 280px;
+        margin-top:20px;
+    }
 
+    .deal-summary-container {
+        width: 100%;
+    }
+
+    .deal-summary-container .col-md-12 {
+        padding:0;
+    }
+
+    .deal-summary-container hr {
+        margin-right:20px
+    }
+
+    .deal-summary-image {
+        float: left;
+        padding: 20px;
+        
+    }
+
+    .deal-summary-image > img {
+        width:240px;
+        height:240px;
+    }
+
+    .deal-summary-informations {
+        padding-top:15px;
+        float: left;
+        text-align: left;
+        width: calc(100% - 280px);
+    }
+
+    .deal-summary-title {
+        width: 100%;
+    }
+
+    .deal-summary-title > span {
+        font-size: 25px
+    }
+
+    .deal-summary-price {
+        width: 100%;
+        float: left;
+    }
+
+    .deal-summary-price > .price {
+        font-size: 25px
+    }
+
+    .deal-summary-price > .shipping {
+        font-size: 18px;
+        color:#B8B1B1;
+    }
+
+    .deal-summary-description {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .truncate {
+        position: relative;
+        height: 56px; 
+    }
+    .truncate:after {
+        content: "";
+        text-align: right;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 70%;
+        height: 1.2em;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 100%);
+    }
+
+    .deal-summary-description > span {
+        font-size: 20px
+    }
+
+    .deal-summary-poster {
+        width:100%;
+        margin-top:15px;
+    }
+
+    .deal-summary-poster > img {
+        width:30px;
+    }
+
+    .deal-summary-poster > span {
+        font-size: 17px;
+        position: absolute;
+        padding-left: 10px;
+        padding-top: 3px;
+    }
+
+    .deal-summary-votes {
+        padding: 0
+    }
+
+    .deal-summary-votes span {
+        font-size: 30px;
+        float: left;
+        margin-top: -3px;
+        padding-left:12px;
+        padding-right: 12px;
+    }
+
+    .vote-button {
+        width:40px;
+        height:40px;
+        background-color: #007ACC;
+        border-radius: 10px;
+        border: 2px solid black;
+        display: flex;
+        float: left;
+        cursor: pointer;
+    }
+
+    .vote-button > span {
+        margin:auto;
+        color: white;
+        font-size: 30px;
+    }
+
+    .vote-button > .plus {
+        margin-top: -5px;
+        margin-left: -2px;
+    }
+
+    .vote-button > .minus {
+        margin-top: -7px;
+        margin-left: 1px;
+    }
+
+    .expand-button {
+        width:125px;
+        height:40px;
+        background-color: #50B9FF;
+        border-radius: 10px;
+        border: 2px solid black;
+        display: flex;
+        float: right;
+        margin-right:20px;
+        cursor: pointer;
+    }
+
+    .expand-button span{
+        margin:auto;
+        color:white;
+    }
 </style>
