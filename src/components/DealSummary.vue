@@ -46,7 +46,7 @@ export default {
 <style>
     .deal-summary {
         background-color: white;
-        height: 280px;
+        height: 265px;
         margin-top:20px;
     }
 
@@ -69,8 +69,8 @@ export default {
     }
 
     .deal-summary-image > img {
-        width:240px;
-        height:240px;
+        width:225px;
+        height:225px;
     }
 
     .deal-summary-informations {
@@ -85,7 +85,7 @@ export default {
     }
 
     .deal-summary-title > span {
-        font-size: 25px
+        font-size: 22px
     }
 
     .deal-summary-price {
@@ -94,7 +94,7 @@ export default {
     }
 
     .deal-summary-price > .price {
-        font-size: 25px
+        font-size: 22px
     }
 
     .deal-summary-price > .shipping {
@@ -109,7 +109,7 @@ export default {
 
     .truncate {
         position: relative;
-        height: 56px; 
+        height: 50px; 
     }
     .truncate:after {
         content: "";
@@ -123,7 +123,7 @@ export default {
     }
 
     .deal-summary-description > span {
-        font-size: 20px
+        font-size: 18px
     }
 
     .deal-summary-poster {
@@ -136,7 +136,7 @@ export default {
     }
 
     .deal-summary-poster > span {
-        font-size: 17px;
+        font-size: 15px;
         position: absolute;
         padding-left: 10px;
         padding-top: 3px;
@@ -147,7 +147,7 @@ export default {
     }
 
     .deal-summary-votes span {
-        font-size: 30px;
+        font-size: 25px;
         float: left;
         margin-top: -3px;
         padding-left:12px;
@@ -155,8 +155,8 @@ export default {
     }
 
     .vote-button {
-        width:40px;
-        height:40px;
+        width:35px;
+        height:35px;
         background-color: #007ACC;
         border-radius: 10px;
         border: 2px solid black;
@@ -168,22 +168,22 @@ export default {
     .vote-button > span {
         margin:auto;
         color: white;
-        font-size: 30px;
+        font-size: 25px;
     }
 
     .vote-button > .plus {
-        margin-top: -5px;
-        margin-left: -2px;
+        margin-top: -3px;
+        margin-left: -4px;
     }
 
     .vote-button > .minus {
-        margin-top: -7px;
-        margin-left: 1px;
+        margin-top: -5px;
+        margin-left: 0px;
     }
 
     .expand-button {
-        width:125px;
-        height:40px;
+        width:110px;
+        height:35px;
         background-color: #50B9FF;
         border-radius: 10px;
         border: 2px solid black;

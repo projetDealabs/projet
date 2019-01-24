@@ -6,6 +6,7 @@ import VueAxios from 'vue-axios'
 import VueRouter from 'vue-router'
 import App from './App'
 import HotDealsPage from './components/pages/HotDealsPage'
+import DealPage from './components/pages/DealPage'
 import CategoriesPage from './components/pages/CategoriesPage'
 
 Vue.use(VueRouter);
@@ -22,6 +23,11 @@ const routes = [{
         path: '/categories',
         name: 'CategoriesPage',
         component: CategoriesPage
+    },
+    {
+        path: '/deal/:idDeal',
+        name: 'DealPage',
+        component: DealPage
     }
 ]
 const router = new VueRouter({
