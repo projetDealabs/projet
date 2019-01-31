@@ -9,9 +9,11 @@
                     <input type="text">
                 </div>
                 <div class="col-md-2 topbar-newdeal">
-                    <div class="newdeal-button">
-                        <span>Ajouter un deal</span>
-                    </div>
+                    <router-link :to="{ name: 'NewDealPage', params: {} }">
+                        <div class="newdeal-button">
+                            <span>Ajouter un deal</span>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -73,7 +75,7 @@ export default {
 
     }
 
-    .topbar-newdeal > .newdeal-button {
+    .topbar-newdeal .newdeal-button {
         height:40px;
         margin:auto;
         border-radius:10px;
@@ -82,10 +84,18 @@ export default {
         max-width: 150px;
         cursor:pointer;
         display: flex;
+        padding: 10px;
+        margin-top:10px;
     }
 
     .newdeal-button > span {
-        margin:auto
+        margin:auto;
+        text-decoration: none;
+        color:white
+    }
+
+    a:hover{
+        text-decoration: none;
     }
 
     
