@@ -8,6 +8,7 @@ import App from './App'
 import HotDealsPage from './components/pages/HotDealsPage'
 import DealPage from './components/pages/DealPage'
 import CategoriesPage from './components/pages/CategoriesPage'
+import NewDealPage from './components/pages/NewDealPage'
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -28,6 +29,11 @@ const routes = [{
         path: '/deal/:idDeal',
         name: 'DealPage',
         component: DealPage
+    },
+    {
+        path: '/newdeal',
+        name: 'NewDealPage',
+        component: NewDealPage
     }
 ]
 const router = new VueRouter({
