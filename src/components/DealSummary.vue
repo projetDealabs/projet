@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     .deal-summary {
         background-color: white;
         height: 265px;
