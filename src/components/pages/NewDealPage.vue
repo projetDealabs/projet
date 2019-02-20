@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-12">
                         <div class="expand-button">
-                            <span>Voir l'offre sur Micromania.fr</span>
+                            <input placeholder="Lien de l'offre...">
                         </div>
                     </div>
                 </div>
@@ -183,12 +183,12 @@ export default {
     .vote-button {
         width:35px;
         height:35px;
-        background-color: #007ACC;
+        background-color: #A9A9A9;
         border-radius: 10px;
         border: 2px solid black;
         display: flex;
         float: left;
-        cursor: pointer;
+        cursor: not-allowed;
     }
 
     .vote-button > span {
@@ -224,6 +224,18 @@ export default {
         color:white;
     }
 
+    .expand-button > input {
+        width: 100%;
+        border-radius: 5%;
+        background-color: transparent;
+        text-align: center;
+        color:white;
+    }
+
+     .expand-button > input::placeholder {
+        color:white;
+    }
+
     .share-button-container {
         float: right;
     }
@@ -232,6 +244,7 @@ export default {
         width:40px;
         margin-top:10px;
         float: right;
+        cursor: not-allowed;
     }
 
     .expand-button {
