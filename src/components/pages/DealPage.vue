@@ -3,25 +3,25 @@
         <div class="deal-header">
             <div class="deal-header-container">
                 <div class="deal-header-image">
-                    <img src="../../assets/switch.jpg">
+                    <img src="../../assets/image.png">
                 </div>
                 <div class="deal-header-informations">
                     <div class="deal-header-title">
-                        <span>Red Dead Redemption 2 : Bonus Précommande</span>
+                        <span>{{ title }}</span>
                     </div>
                     <div class="deal-header-price">
-                        <span class="price">65,99€</span> <span class="shipping">+5,99€ | sur micromania.fr</span> 
+                        <span class="price">{{ price }}€</span> <span class="shipping"><!--+5,99€--> | sur {{ shop }}</span> 
                     </div>
                     <div class="deal-header-poster">
-                        <img src="../../assets/julien.jpg" alt=""> <span><b>Julien</b> - Publié il y a 3 jours - Expire le 05/02/2019</span>
+                        <img src="../../assets/julien.jpg" alt=""> <span><b>{{ user }}</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
                     </div>
                     <div class="col-md-12">
                         <div class="deal-header-votes col-md-6">
-                            <div class="vote-button">
+                            <div class="vote-button" v-on:click="this.upvote">
                                 <span class="plus">+</span>
                             </div>
-                            <span>183</span>
-                            <div class="vote-button">
+                            <span>{{ votes }}</span>
+                            <div class="vote-button" v-on:click="this.downvote">
                                 <span class="minus">-</span>
                             </div>
                         </div>
@@ -34,18 +34,15 @@
                     </div>
                     <div class="col-md-12">
                         <div class="expand-button">
-                            <span>Voir l'offre sur Micromania.fr</span>
+                            <a v-bind:href="link" target="_blank">
+                                <span>Voir l'offre sur {{ shop }}</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 description-container">
-                <span>Amérique, 1899. L'ère de l'Ouest sauvage touche à sa fin alors que les autorités ont décidé de traquer les dernières bandes de hors-la- loi qui sévissent encore. Ceux qui ne se rendent pas ou résistent sont tués. <br><br>
-
-Suite à un braquage qui a mal tourné dans la ville de Blackwater, Arthur Morgan et le reste des hors-la-loi de la bande de Dutch van der Linde doivent prendre la fuite vers l'est. Les agents fédéraux et les meilleurs chasseurs de primes du pays se mettent à leurs trousses et la bande commet méfaits sur
-méfaits dans les vastes terres sauvages de l'Amérique dans un seul et unique but : survivre. <br><br> Alors que des querelles internes menacent de faire voler la bande en éclats, Arthur est tiraillé entre ses propres idéaux et sa loyauté envers la bande qui l'a élevé.
-
-Par les créateurs de Grand Theft Auto V et Red Dead Redemption, Red Dead Redemption 2 raconte une histoire épique au cœur de l'Amérique à l'aube de l'ère moderne.</span>
+                <span>{{ description }}</span>
             </div>
         </div>
     </div>
@@ -53,7 +50,72 @@ Par les créateurs de Grand Theft Auto V et Red Dead Redemption, Red Dead Redemp
 
 <script>
 export default {
-    
+    props: ['idDeal'],
+    mounted: function() {
+        this.getDealData(this.$route.params.idDeal);
+    },
+    methods: {
+        getDealData: function(id) {
+            let self = this;
+            let route = "http://localhost:3000/";
+            this.axios.get("http://localhost:3000/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                let data = response.data;
+                self.$data.title = data.name;
+                self.$data.price = data.prix;
+                self.$data.description = data.description;
+                self.$data.expiration = data.dateFin;
+                self.$data.link = data.lien;
+                self.$data.votes = data.compteur;
+
+                let matches = data.lien.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+                let shop = matches && matches[1];  // domain will be null if no match is found
+                self.$data.shop = shop;
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        upvote: function() {
+            let self = this;
+            let id = this.$route.params.idDeal;
+            this.axios.get("http://localhost:3000/up/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.votes = response.data.compteur; 
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        downvote: function() {
+            let self = this;
+            let id = this.$route.params.idDeal;
+            this.axios.get("http://localhost:3000/down/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.votes = response.data.compteur; 
+            }).catch(function(error) {
+            console.log(error);
+            });
+        }
+    },
+    data: function() {
+        return {
+            title: "",
+            price: "€",
+            shop: "micromania.fr",
+            link: "",
+            user: "Utilisateur",
+            expiration: "",
+            votes: "0",
+            description: ""
+        }
+    }
 }
 </script>
 
@@ -223,6 +285,10 @@ export default {
     .expand-button span{
         margin:auto;
         color:white;
+    }
+
+    .expand-button a {
+        margin:auto;
     }
 
     .share-button-container {

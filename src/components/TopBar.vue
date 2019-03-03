@@ -2,18 +2,24 @@
     <div id="TopBar">
         <div class="col-md-12 topbar">
             <div class="col-md-8 topbar-container">
-                <div class="col-md-2 topbar-logo">
-                    <span>Projet Dealabs</span>
-                </div>
-                <div class="col-md-8 topbar-search">
+                <router-link :to="{ name: 'HotDealsPage', params: {} }">
+                    <div class="col-md-2 topbar-logo">
+                        <span>EVeRYDeal</span>
+                    </div>
+                </router-link>
+                
+                <div class="col-md-7 topbar-search">
                     <input type="text">
                 </div>
-                <div class="col-md-2 topbar-newdeal">
+                <div class="col-md-3 topbar-newdeal">
                     <router-link :to="{ name: 'NewDealPage', params: {} }">
                         <div class="newdeal-button">
-                            <span>Ajouter un deal</span>
+                            <span>Nouveau deal</span>
                         </div>
                     </router-link>
+                    <div class="newdeal-button">
+                            <span>Mon compte</span>
+                        </div>
                 </div>
             </div>
         </div>
@@ -40,10 +46,14 @@ export default {
         height:100%;
     }
 
-    .topbar-container > div {
+    .topbar-container div {
         height:100%;
         float:left;
         display: flex;
+    }
+
+    .topbar-container a {
+        color:white;
     }
 
     .topbar-logo {
@@ -81,7 +91,7 @@ export default {
         border-radius:10px;
         background-color:#50B9FF;
         width: 100%;
-        max-width: 150px;
+        max-width: 125px;
         cursor:pointer;
         display: flex;
         padding: 10px;

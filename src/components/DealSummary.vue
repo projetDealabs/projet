@@ -2,35 +2,37 @@
     <div class="deal-summary">
         <div class="deal-summary-container">
             <div class="deal-summary-image">
-                <img src="../assets/switch.jpg">
+                <img src="../assets/image.png">
             </div>
             <div class="deal-summary-informations">
                 <div class="deal-summary-title">
-                    <span>Red Dead Redemption 2 : Bonus Précommande</span>
+                    <span>{{ title }}</span>
                 </div>
                 <div class="deal-summary-price">
-                    <span class="price">65,99€</span> <span class="shipping">+5,99€ | sur micromania.fr</span> 
+                    <span class="price">{{ price }}€</span> <span class="shipping"><!--+5,99€ | -->sur {{ shop }}</span> 
                 </div>
                 <div class="deal-summary-description truncate">
-                    <span>Amérique, 1899. L'ère de l'Ouest sauvage touche à sa fin alors que les autorités ont décidé de traquer les dernières bandes de hors-la- loi qui sévissent encore. Ceux qui ne se rendent pas ou résistent sont tués.</span> 
+                    <span>{{ description }}</span> 
                 </div>
                 <div class="deal-summary-poster">
-                    <img src="../assets/julien.jpg" alt=""> <span><b>Julien</b> - Publié il y a 3 jours - Expire le 05/02/2019</span>
+                    <img src="../assets/julien.jpg" alt=""> <span><b>Utilisateur</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
                 </div>
                 <hr>
                 <div class="col-md-12">
                     <div class="deal-summary-votes col-md-6">
-                        <div class="vote-button">
+                        <div class="vote-button" v-on:click="this.upvote">
                             <span class="plus">+</span>
                         </div>
-                        <span>183</span>
-                        <div class="vote-button">
+                        <span>{{ votes }}</span>
+                        <div class="vote-button" v-on:click="this.downvote">
                             <span class="minus">-</span>
                         </div>
                     </div>
-                    <div class="expand-button">
-                        <span>Voir plus...</span>
-                    </div>
+                    <router-link :to="{ name: 'DealPage', params: {idDeal: this.idDeal} }">
+                        <div class="expand-button">
+                            <span>Voir plus...</span>
+                        </div>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -39,7 +41,72 @@
 
 <script>
 export default {
-    
+    props: ['idDeal'],
+    mounted: function() {
+        this.getDealData();
+    },
+    methods: {
+        getDealData: function(id) {
+            let self = this;
+            let route = "http://localhost:3000/";
+            this.axios.get("http://localhost:3000/"+this.idDeal, {
+
+            })
+            .then(function(response, vueElem) {
+                let data = response.data;
+                self.$data.title = data.name;
+                self.$data.price = data.prix;
+                self.$data.description = data.description;
+                self.$data.expiration = data.dateFin;
+                self.$data.link = data.lien;
+                self.$data.votes = data.compteur;
+
+                let matches = data.lien.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+                let shop = matches && matches[1];  // domain will be null if no match is found
+                self.$data.shop = shop;
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        upvote: function() {
+            let self = this;
+            let id = this.idDeal;
+            this.axios.get("http://localhost:3000/up/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.votes = response.data.compteur; 
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        downvote: function() {
+            let self = this;
+            let id = this.idDeal;
+            this.axios.get("http://localhost:3000/down/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.votes = response.data.compteur; 
+            }).catch(function(error) {
+            console.log(error);
+            });
+        }
+    },
+    data: function() {
+        return {
+            title: "",
+            price: "€",
+            shop: "micromania.fr",
+            link: "",
+            user: "",
+            expiration: "",
+            votes: "",
+            description: ""
+        }
+    }
 }
 </script>
 
