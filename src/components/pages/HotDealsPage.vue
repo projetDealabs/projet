@@ -2,10 +2,9 @@
     <div id="HotDealsPage">
         <div class="col-md-12">
             <div class="col-md-8 hot-deals-container">
-                <DealSummary/>
-                <DealSummary/>
-                <DealSummary/>
-                <DealSummary/>
+                <div v-for="deal in dealsIDs">
+                    <DealSummary :idDeal="deal"/>
+                </div>
             </div>
         </div>
     </div>
@@ -17,6 +16,35 @@ import DealSummary from '../DealSummary'
 export default {
     components: {
         DealSummary
+    },
+    mounted: function() {
+        this.getDealsIDs();
+    },
+    methods: {
+        getDealsIDs: function(id) {
+            let self = this;
+            this.axios.get("http://localhost:3000/", {
+                /*params: {
+                    id: id
+                }*/
+            })
+            .then(function(response, vueElem) {
+                var data = response.data;
+                console.log(response);
+                data.forEach(function(element) {
+                    self.$data.dealsIDs.push(element["_id"]);
+                });
+                //self.$data.IDs.add()
+
+            }).catch(function(error) {
+            console.log(error);
+            });
+        }
+    },
+    data: function() {
+        return {
+            dealsIDs: []
+        }
     }
 }
 </script>

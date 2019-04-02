@@ -3,63 +3,102 @@
         <div class="deal-header">
             <div class="deal-header-container">
                 <div class="deal-header-image">
-                    <img src="../../assets/switch.jpg">
+                    <img src="../../assets/image.png">
                 </div>
                 <div class="deal-header-informations">
                     <div class="deal-header-title">
-                        <input type="text" placeholder="Titre de votre annonce..."/>
+                        <input id="title" type="text" placeholder="Titre de votre annonce..."/>
                     </div>
                     <div class="deal-header-price">
-                        <input type="text" placeholder="00,00"/>€ <input type="text" placeholder="00,00"/>€
+                        <input id="price" type="number" placeholder="Prix..."/>€<!-- <input type="text" placeholder="00,00"/>€-->
                     </div>
                     <div class="deal-header-poster">
-                        <img src="../../assets/julien.jpg" alt=""><span><input type="text" placeholder="Pseudo"/> - Expire le:  <input type="date" placeholder="Expire le:"/></span>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="deal-header-votes col-md-6">
-                            <div class="vote-button">
-                                <span class="plus">+</span>
-                            </div>
-                            <span>0</span>
-                            <div class="vote-button">
-                                <span class="minus">-</span>
-                            </div>
-                        </div>
-                        <div class="share-button-container col-md-6">
-                            <img src="../../assets/images/dots.png">
-                            <img src="../../assets/images/gplus.png">
-                            <img src="../../assets/images/twitter.jpg">
-                            <img src="../../assets/images/fb.png">
-                        </div>
+                        <!--<img src="../../assets/julien.jpg" alt=""><span><input disabled type="text" placeholder="Utilisateur"/> ---> Expire le:  <input id="expiration" type="date" placeholder="Expire le:"/></span>
                     </div>
                     <div class="col-md-12">
                         <div class="expand-button">
-                            <input placeholder="Lien de l'offre...">
+                            <input id="link" type="text" placeholder="URL de l'offre"/>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-12 description-container">
-                <textarea type="text" placeholder="Décrivez votre annonce..."></textarea>
+                <textarea id="description" type="text" placeholder="Décrivez votre annonce..."></textarea>
             </div>
+        </div>
+        <input type="file">
+        <div class="round-send-button" v-on:click="this.getFormData">
+            <img src="../../assets/send.png" alt="">
         </div>
     </div>
 </template>
 
 <script>
+const qs = require('qs')
+
 export default {
-    
+    methods: {
+        getFormData: function() {
+            let title = document.getElementById('title').value;
+            let price = document.getElementById('price').value;
+            let expiration = document.getElementById('expiration').value;
+            let link = document.getElementById('link').value;
+            let description = document.getElementById('description').value;
+            
+            const requestBody = {
+                name: title,
+                prix: price,
+                description: description,
+                dateFin: expiration,
+                lien: link
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+
+            const url = "http://localhost:3000/create";
+
+            let self = this;
+            this.axios.post(url, qs.stringify(requestBody), config)
+            .then(function(response, vueElem) {
+                console.log(response);
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        getImagesFromUrl: function() {
+            
+        }
+    },
 }
 </script>
 
 <style scoped>
+    .round-send-button {
+        width:60px;
+        height: 60px;
+        border-radius: 100%;
+        background-color:#50B9FF;
+        position: absolute;
+        bottom: 25px;
+        right: 25px;
+        cursor: pointer;
+    }
+
+    .round-send-button img {
+        width:100%;
+    }
     .deal-page {
         width:60%;
         margin: auto;
         background-color: white;
         display: inline-block;
         min-height: calc(100vh - 80px);
-        margin-top:20px
+        margin-top:20px;
+        position: relative;
     }
     .deal-header {
         height: 265px;
@@ -97,7 +136,7 @@ export default {
     }
 
     .deal-header-price input {
-        width:45px;
+        width:65px;
     }
 
     .deal-header-title {
@@ -210,11 +249,7 @@ export default {
     .expand-button {
         width:110px;
         height:35px;
-        background-color: #50B9FF;
-        border-radius: 10px;
-        border: 2px solid black;
         display: flex;
-        float: right;
         margin-right:20px;
         cursor: pointer;
     }
@@ -226,14 +261,11 @@ export default {
 
     .expand-button > input {
         width: 100%;
-        border-radius: 5%;
         background-color: transparent;
-        text-align: center;
-        color:white;
+        float: left;
     }
 
      .expand-button > input::placeholder {
-        color:white;
     }
 
     .share-button-container {
@@ -250,9 +282,6 @@ export default {
     .expand-button {
         width:100%;
         height:35px;
-        background-color: #50B9FF;
-        border-radius: 10px;
-        border: 2px solid black;
         display: flex;
         float: left;
         margin-right:20px;
