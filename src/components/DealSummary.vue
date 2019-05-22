@@ -15,7 +15,7 @@
                     <span>{{ description }}</span> 
                 </div>
                 <div class="deal-summary-poster">
-                    <img src="../assets/julien.jpg" alt=""> <span><b>Utilisateur</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
+                    <img src="../assets/julien.jpg" alt=""> <span><b>{{ username }}</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
                 </div>
                 <hr>
                 <div class="col-md-12">
@@ -48,8 +48,8 @@ export default {
     methods: {
         getDealData: function(id) {
             let self = this;
-            let route = "http://localhost:3000/";
-            this.axios.get("http://localhost:3000/"+this.idDeal, {
+            let route = "http://localhost:8080/";
+            this.axios.get("http://localhost:8080/"+this.idDeal, {
 
             })
             .then(function(response, vueElem) {
@@ -57,6 +57,7 @@ export default {
                 self.$data.title = data.name;
                 self.$data.price = data.prix;
                 self.$data.description = data.description;
+                self.$data.username = data.username;
                 self.$data.expiration = data.dateFin;
                 self.$data.link = data.lien;
                 self.$data.votes = data.compteur;
@@ -71,7 +72,7 @@ export default {
         upvote: function() {
             let self = this;
             let id = this.idDeal;
-            this.axios.get("http://localhost:3000/up/"+id, {
+            this.axios.get("http://localhost:8080/up/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -84,7 +85,7 @@ export default {
         downvote: function() {
             let self = this;
             let id = this.idDeal;
-            this.axios.get("http://localhost:3000/down/"+id, {
+            this.axios.get("http://localhost:8080/down/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -101,7 +102,7 @@ export default {
             price: "€",
             shop: "micromania.fr",
             link: "",
-            user: "",
+            username: "Utilisateur",
             expiration: "",
             votes: "",
             description: ""

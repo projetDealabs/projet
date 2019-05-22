@@ -57,8 +57,8 @@ export default {
     methods: {
         getDealData: function(id) {
             let self = this;
-            let route = "http://localhost:3000/";
-            this.axios.get("http://localhost:3000/"+id, {
+            let route = "http://localhost:8080/";
+            this.axios.get("http://localhost:8080/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -80,7 +80,7 @@ export default {
         upvote: function() {
             let self = this;
             let id = this.$route.params.idDeal;
-            this.axios.get("http://localhost:3000/up/"+id, {
+            this.axios.get("http://localhost:8080/up/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -93,7 +93,7 @@ export default {
         downvote: function() {
             let self = this;
             let id = this.$route.params.idDeal;
-            this.axios.get("http://localhost:3000/down/"+id, {
+            this.axios.get("http://localhost:8080/down/"+id, {
 
             })
             .then(function(response, vueElem) {

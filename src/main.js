@@ -11,6 +11,7 @@ import CategoriesPage from './components/pages/CategoriesPage'
 import NewDealPage from './components/pages/NewDealPage'
 import LoginPage from './components/pages/LoginPage'
 import SignupPage from './components/pages/SignupPage'
+import UserDealsPage from './components/pages/UserDealsPage'
 
 Vue.use(VueRouter);
 Vue.use(VueAxios, axios);
@@ -46,6 +47,11 @@ const routes = [{
         path: '/signup',
         name: 'SignupPage',
         component: SignupPage
+    },
+    {
+        path: '/userdeals',
+        name: 'UserDealsPage',
+        component: UserDealsPage
     }
 ]
 const router = new VueRouter({

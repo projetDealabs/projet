@@ -9,8 +9,12 @@
                 <input class="form-control form-control-lg" type="text" placeholder="Votre login" id="login">
                 <label for="password" style="float: left;margin-left: 25px;">Mot de passe</label>
                 <input class="form-control form-control-lg" type="text" placeholder="Votre mot de passe" id="password">
+
+                <router-link :to="{ name: 'SignupPage', params: {} }">
+                    Vous n'avez pas de compte ? Cliquez ici.
+                </router-link>
             </div>
-            <div class="login-button">
+            <div class="login-button" v-on:click="this.login">
                 <span>LOGIN</span>
             </div>
         </div>
@@ -18,8 +22,70 @@
 </template>
 
 <script>
+const qs = require('qs')
+
 export default {
-    
+    methods: {
+        login: function() {
+            let login = document.getElementById('login').value;
+            let password = document.getElementById('password').value;
+            const requestBody = {
+                username: login,
+                password: password
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+
+            const url = "http://localhost:8080/users/login";
+
+            let self = this;
+            this.axios.post(url, qs.stringify(requestBody), config)
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.token = response.data.token;
+                self.decryptToken();
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        decryptToken: function() {
+            const requestBody = {
+                //token: this.$data.token
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': this.$data.token
+                }
+            }
+
+            const url = "http://localhost:8080/users/decrypt";
+
+            let self = this;
+            this.axios.post(url, qs.stringify(requestBody), config)
+            .then(function(response, vueElem) {
+                console.log(response);
+                self.$data.username = response.data.username;
+                self.createCookie();
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        createCookie: function() {
+            document.cookie = "username="+this.$data.username+";";
+        }
+    },
+    data: function() {
+        return {
+            token: "",
+            username: ""
+        }
+    }
 }
 </script>
 

@@ -12,14 +12,39 @@
                     <input type="text">
                 </div>
                 <div class="col-md-3 topbar-newdeal">
-                    <router-link :to="{ name: 'NewDealPage', params: {} }">
+                    <div v-if="gotCookie">
+                        <router-link :to="{ name: 'NewDealPage', params: {} }">
+                            <div class="newdeal-button">
+                                <span>Nouveau deal</span>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div v-else>
+                        <router-link :to="{ name: 'LoginPage', params: {} }">
+                            <div class="newdeal-button">
+                                <span>Nouveau deal</span>
+                            </div>
+                        </router-link>
+                    </div>
+
+                    <div v-if="gotCookie">
+                        <router-link :to="{ name: 'UserDealsPage', params: {} }">
+                            <div class="newdeal-button">
+                                <span>{{ username }}</span>
+                            </div>
+                        </router-link>
                         <div class="newdeal-button">
-                            <span>Nouveau deal</span>
+                            <span v-on:click="delete_cookie('username')">X</span>
                         </div>
-                    </router-link>
-                    <div class="newdeal-button">
-                            <span>Mon compte</span>
-                        </div>
+                        
+                    </div>
+                    <div v-else>
+                        <router-link :to="{ name: 'LoginPage', params: {} }">
+                            <div class="newdeal-button">
+                                <span>Mon compte</span>
+                            </div>
+                        </router-link>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,7 +53,30 @@
 
 <script>
 export default {
-    
+    mounted: function() {
+        this.getCookieData();
+    },
+    methods: {
+        getCookieValue: function(name) {
+            var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return b ? b.pop() : '';
+        },
+        getCookieData: function() {
+            this.$data.username = this.getCookieValue("username");
+            if(this.$data.username !== '') {
+                this.$data.gotCookie = true;
+            }
+        },
+        delete_cookie: function(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+    },
+    data: function() {
+        return {
+            gotCookie: false,
+            username: ""
+        }
+    }
 }
 </script>
 
@@ -96,6 +144,7 @@ export default {
         display: flex;
         padding: 10px;
         margin-top:10px;
+        margin-left:10px;
     }
 
     .newdeal-button > span {

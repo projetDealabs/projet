@@ -43,12 +43,14 @@ export default {
             let price = document.getElementById('price').value;
             let expiration = document.getElementById('expiration').value;
             let link = document.getElementById('link').value;
+            let username = this.getCookieValue('username');
             let description = document.getElementById('description').value;
             
             const requestBody = {
                 name: title,
                 prix: price,
                 description: description,
+                username: username,
                 dateFin: expiration,
                 lien: link
             }
@@ -59,7 +61,7 @@ export default {
                 }
             }
 
-            const url = "http://localhost:3000/create";
+            const url = "http://localhost:8080/create";
 
             let self = this;
             this.axios.post(url, qs.stringify(requestBody), config)
@@ -71,6 +73,19 @@ export default {
         },
         getImagesFromUrl: function() {
             
+        },
+        getCookieValue: function(name) {
+            var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return b ? b.pop() : '';
+        },
+        getCookieData: function() {
+            this.$data.username = this.getCookieValue("username");
+            if(this.$data.username !== '') {
+                this.$data.gotCookie = true;
+            }
+        },
+        delete_cookie: function(name) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         }
     },
 }

@@ -1,7 +1,10 @@
 <template>
     <div id="HotDealsPage">
         <div class="col-md-12">
-            <div class="col-md-8 hot-deals-container">
+            <div class="col-md-8 user-deals-page">
+                <div class="deals-title">
+                    <span>Mes deals</span>
+                </div>
                 <div v-for="deal in dealsIDs">
                     <DealSummary :idDeal="deal"/>
                 </div>
@@ -50,9 +53,16 @@ export default {
 </script>
 
 <style>
-    .hot-deals-container {
+    .user-deals-page {
         margin: auto;
         height:auto;
         margin-top: 20px;
+    }
+    .deals-title span{
+        font-size: 25px;
+    }
+    .deals-title {
+        width: 100%;
+        text-align: left;
     }
 </style>

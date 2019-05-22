@@ -7,10 +7,16 @@
             <div class="form-credentials">
                 <label for="login" style="float: left;margin-left: 25px;">Login</label>
                 <input class="form-control form-control-lg" type="text" placeholder="Votre login" id="login">
+                <label for="mail" style="float: left;margin-left: 25px;">Mail</label>
+                <input class="form-control form-control-lg" type="text" placeholder="Votre mail" id="mail">
                 <label for="password" style="float: left;margin-left: 25px;">Mot de passe</label>
                 <input class="form-control form-control-lg" type="text" placeholder="Votre mot de passe" id="password">
+                
+                <router-link :to="{ name: 'LoginPage', params: {} }">
+                    Vous avez déjà un compte ? Cliquez ici.
+                </router-link>
             </div>
-            <div class="login-button">
+            <div class="login-button" v-on:click="this.register">
                 <span>SIGN UP</span>
             </div>
         </div>
@@ -18,8 +24,37 @@
 </template>
 
 <script>
+const qs = require('qs')
+
 export default {
-    
+    methods: {
+        register: function() {
+            let login = document.getElementById('login').value;
+            let password = document.getElementById('password').value;
+            let mail = document.getElementById('mail').value;
+            const requestBody = {
+                username: login,
+                email: mail,
+                password: password
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+
+            const url = "http://localhost:8080/users/register";
+
+            let self = this;
+            this.axios.post(url, qs.stringify(requestBody), config)
+            .then(function(response, vueElem) {
+                console.log(response);
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+    }
 }
 </script>
 
