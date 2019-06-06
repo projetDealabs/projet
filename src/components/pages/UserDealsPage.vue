@@ -26,7 +26,7 @@ export default {
     methods: {
         getDealsIDs: function(id) {
             let self = this;
-            this.axios.get("http://localhost:8080/", {
+            this.axios.get("http://localhost:8282/", {
                 /*params: {
                     id: id
                 }*/

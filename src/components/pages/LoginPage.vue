@@ -40,7 +40,7 @@ export default {
                 }
             }
 
-            const url = "http://localhost:8080/users/login";
+            const url = "http://localhost:8282/users/login";
 
             let self = this;
             this.axios.post(url, qs.stringify(requestBody), config)
@@ -64,7 +64,7 @@ export default {
                 }
             }
 
-            const url = "http://localhost:8080/users/decrypt";
+            const url = "http://localhost:8282/users/decrypt";
 
             let self = this;
             this.axios.post(url, qs.stringify(requestBody), config)

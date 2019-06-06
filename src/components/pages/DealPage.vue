@@ -25,12 +25,12 @@
                                 <span class="minus">-</span>
                             </div>
                         </div>
-                        <div class="share-button-container col-md-6">
+                        <!--<div class="share-button-container col-md-6">
                             <img src="../../assets/images/dots.png">
                             <img src="../../assets/images/gplus.png">
                             <img src="../../assets/images/twitter.jpg">
                             <img src="../../assets/images/fb.png">
-                        </div>
+                        </div>-->
                     </div>
                     <div class="col-md-12">
                         <div class="expand-button">
@@ -39,31 +39,40 @@
                             </a>
                         </div>
                     </div>
+                    <div class="col-md-12 description-container">
+                        <span>{{ description }}</span>
+                    </div>
+                    <div class="col-md-12">
+                        <CommentSection :idComments="this.$data.comments"></CommentSection>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12 description-container">
-                <span>{{ description }}</span>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import CommentSection from '../CommentSection'
+
 export default {
     props: ['idDeal'],
+    components: {
+        CommentSection
+    },
     mounted: function() {
         this.getDealData(this.$route.params.idDeal);
     },
     methods: {
         getDealData: function(id) {
             let self = this;
-            let route = "http://localhost:8080/";
-            this.axios.get("http://localhost:8080/"+id, {
+            let route = "http://localhost:8282/";
+            this.axios.get("http://localhost:8282/"+id, {
 
             })
             .then(function(response, vueElem) {
                 let data = response.data;
                 self.$data.title = data.name;
+                self.$data.comments = data.comments;
                 self.$data.price = data.prix;
                 self.$data.description = data.description;
                 self.$data.expiration = data.dateFin;
@@ -80,7 +89,7 @@ export default {
         upvote: function() {
             let self = this;
             let id = this.$route.params.idDeal;
-            this.axios.get("http://localhost:8080/up/"+id, {
+            this.axios.get("http://localhost:8282/up/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -93,7 +102,7 @@ export default {
         downvote: function() {
             let self = this;
             let id = this.$route.params.idDeal;
-            this.axios.get("http://localhost:8080/down/"+id, {
+            this.axios.get("http://localhost:8282/down/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -107,6 +116,7 @@ export default {
     data: function() {
         return {
             title: "",
+            comments: [],
             price: "€",
             shop: "micromania.fr",
             link: "",
@@ -138,7 +148,6 @@ export default {
 
     .deal-header-container .col-md-12 {
         padding:0;
-        border-bottom: 0.1px solid gainsboro;
     }
 
     .deal-header-container hr {
@@ -318,6 +327,7 @@ export default {
         text-align: left;
         float: left;
         padding-left:20px;
+        margin-top:20px;
     }
 
     .description-container > span {
