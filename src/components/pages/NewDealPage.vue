@@ -26,7 +26,7 @@
                 <textarea id="description" type="text" placeholder="Décrivez votre annonce..."></textarea>
             </div>
         </div>
-        <input accept=".png, .jpg, .jpeg" id="image" name="imageUpload" type="file">
+        <input accept=".png, .jpg, .jpeg" id="image" name="file" type="file">
         <div class="round-send-button" v-on:click="this.getFormData">
             <img src="../../assets/send.png" alt="">
         </div>

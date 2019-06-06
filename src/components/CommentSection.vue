@@ -21,8 +21,8 @@
             </form>
         </div>
         <div class="comments-panel">
-            <div v-for="(comment,index) in idComments">
-                <CommentElement :idComment="comment"></CommentElement>
+            <div v-for="(comment,index) in commentsData">
+                <CommentElement :commentData="comment"></CommentElement>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@ const qs = require('qs')
 import CommentElement from "./CommentElement";
 
 export default {
-    props: ['idComments'],
+    props: ['idComments','idDeal'],
     components: {
         CommentElement
     },
@@ -45,8 +45,32 @@ export default {
         else {
             this.$data.userOnline = false;
         }
+        this.getCommentData(this.idDeal);
     },
     methods: {
+        getCommentData: function(idDeal) {
+
+            const url = "http://localhost:8282/"+this.idDeal+"/comment";
+
+            const requestBody = {
+                
+            }
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+
+            let self = this;
+            this.axios.get(url, qs.stringify(requestBody), config)
+            .then(function(response, vueElem) {
+                self.$data.commentsData = response.data.comments;
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+
       createComment: function() {
             let comment = document.getElementById('comment').value;
             let username = this.readCookie('username');
@@ -87,7 +111,8 @@ export default {
         return {
             commentsIDs: [],
             userOnline: false,
-            numberComments: 0
+            numberComments: 0,
+            commentsData:[]
         }
     }
 }

@@ -16,38 +16,21 @@ const qs = require('qs')
 
 
 export default {
-    props: ['idComment'],
+    props: ['commentData'],
     /*components: {
         CommentVotes,
         CommentAnswer
     },*/
     mounted: function() {
-        this.$data.commentID = this.idComment;
-        this.getCommentData(this.$data.commentID);
+        console.log(this.commentData);
+        this.$data.author = this.commentData.username;
+        this.$data.message = this.commentData.contenu;
+        this.$data.date = this.commentData.date;
+        //this.$data.commentID = this.idComment;
+        //this.getCommentData(this.$data.commentID);
     },
     methods: {
-        getCommentData: function(idComment) {
-
-            const url = "http://localhost:8282/"+this.idComment+"/comment";
-
-            const requestBody = {
-                
-            }
-
-            const config = {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }
-
-            let self = this;
-            this.axios.get(url, qs.stringify(requestBody), config)
-            .then(function(response, vueElem) {
-                console.log(response);
-            }).catch(function(error) {
-            console.log(error);
-            });
-        }
+        
     },
         data: function () {
             return {

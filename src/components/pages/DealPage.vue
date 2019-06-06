@@ -43,7 +43,7 @@
                         <span>{{ description }}</span>
                     </div>
                     <div class="col-md-12">
-                        <CommentSection :idComments="this.$data.comments"></CommentSection>
+                        <CommentSection :idDeal="this.$route.params.idDeal" :idComments="this.$data.comments"></CommentSection>
                     </div>
                 </div>
             </div>
