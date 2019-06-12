@@ -36,20 +36,25 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.editable === true">
+            <div class="delete-button" v-on:click="this.delete">
+                <span>X</span>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['idDeal'],
+    props: ['idDeal','editable'],
     mounted: function() {
         this.getDealData();
     },
     methods: {
         getDealData: function(id) {
             let self = this;
-            let route = "http://localhost:8080/";
-            this.axios.get("http://localhost:8080/"+this.idDeal, {
+            let route = "http://localhost:8282/";
+            this.axios.get("http://localhost:8282/"+this.idDeal, {
 
             })
             .then(function(response, vueElem) {
@@ -72,7 +77,7 @@ export default {
         upvote: function() {
             let self = this;
             let id = this.idDeal;
-            this.axios.get("http://localhost:8080/up/"+id, {
+            this.axios.get("http://localhost:8282/up/"+id, {
 
             })
             .then(function(response, vueElem) {
@@ -85,12 +90,24 @@ export default {
         downvote: function() {
             let self = this;
             let id = this.idDeal;
-            this.axios.get("http://localhost:8080/down/"+id, {
+            this.axios.get("http://localhost:8282/down/"+id, {
 
             })
             .then(function(response, vueElem) {
                 console.log(response);
                 self.$data.votes = response.data.compteur; 
+            }).catch(function(error) {
+            console.log(error);
+            });
+        },
+        delete: function() {
+            let self = this;
+            let id = this.idDeal;
+            this.axios.get("http://localhost:8282/supp/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
             }).catch(function(error) {
             console.log(error);
             });
@@ -116,6 +133,7 @@ export default {
         background-color: white;
         height: 265px;
         margin-top:20px;
+        position: relative;
     }
 
     .deal-summary-container {
@@ -264,5 +282,12 @@ export default {
     .expand-button span{
         margin:auto;
         color:white;
+    }
+
+    .delete-button {
+        cursor: pointer;
+        position: absolute;
+        top:20px;
+        right:30px;
     }
 </style>

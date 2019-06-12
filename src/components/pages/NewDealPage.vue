@@ -26,7 +26,7 @@
                 <textarea id="description" type="text" placeholder="Décrivez votre annonce..."></textarea>
             </div>
         </div>
-        <input type="file">
+        <input accept=".png, .jpg, .jpeg" id="image" name="file" type="file">
         <div class="round-send-button" v-on:click="this.getFormData">
             <img src="../../assets/send.png" alt="">
         </div>
@@ -45,6 +45,7 @@ export default {
             let link = document.getElementById('link').value;
             let username = this.getCookieValue('username');
             let description = document.getElementById('description').value;
+            let img = document.getElementById('image').value;
             
             const requestBody = {
                 name: title,
@@ -52,7 +53,8 @@ export default {
                 description: description,
                 username: username,
                 dateFin: expiration,
-                lien: link
+                lien: link,
+                img: img
             }
 
             const config = {
@@ -61,7 +63,7 @@ export default {
                 }
             }
 
-            const url = "http://localhost:8080/create";
+            const url = "http://localhost:8282/create";
 
             let self = this;
             this.axios.post(url, qs.stringify(requestBody), config)

@@ -44,7 +44,7 @@ export default {
                 }
             }
 
-            const url = "http://localhost:8080/users/register";
+            const url = "http://localhost:8282/users/register";
 
             let self = this;
             this.axios.post(url, qs.stringify(requestBody), config)
