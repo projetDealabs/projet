@@ -36,12 +36,17 @@
                 </div>
             </div>
         </div>
+        <div v-if="this.editable === true">
+            <div class="delete-button" v-on:click="this.delete">
+                <span>X</span>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ['idDeal'],
+    props: ['idDeal','editable'],
     mounted: function() {
         this.getDealData();
     },
@@ -94,6 +99,18 @@ export default {
             }).catch(function(error) {
             console.log(error);
             });
+        },
+        delete: function() {
+            let self = this;
+            let id = this.idDeal;
+            this.axios.get("http://localhost:8282/supp/"+id, {
+
+            })
+            .then(function(response, vueElem) {
+                console.log(response);
+            }).catch(function(error) {
+            console.log(error);
+            });
         }
     },
     data: function() {
@@ -116,6 +133,7 @@ export default {
         background-color: white;
         height: 265px;
         margin-top:20px;
+        position: relative;
     }
 
     .deal-summary-container {
@@ -264,5 +282,12 @@ export default {
     .expand-button span{
         margin:auto;
         color:white;
+    }
+
+    .delete-button {
+        cursor: pointer;
+        position: absolute;
+        top:20px;
+        right:30px;
     }
 </style>

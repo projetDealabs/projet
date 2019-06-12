@@ -6,7 +6,7 @@
                     <span>Mes deals</span>
                 </div>
                 <div v-for="deal in dealsIDs">
-                    <DealSummary :idDeal="deal"/>
+                    <DealSummary :editable="true" :idDeal="deal"/>
                 </div>
             </div>
         </div>
@@ -26,7 +26,7 @@ export default {
     methods: {
         getDealsIDs: function(id) {
             let self = this;
-            this.axios.get("http://localhost:8282/", {
+            this.axios.get("http://localhost:8282/userdeals/"+this.getCookieValue("username"), {
                 /*params: {
                     id: id
                 }*/
@@ -42,7 +42,11 @@ export default {
             }).catch(function(error) {
             console.log(error);
             });
-        }
+        },
+        getCookieValue: function(name) {
+            var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return b ? b.pop() : '';
+        },
     },
     data: function() {
         return {
