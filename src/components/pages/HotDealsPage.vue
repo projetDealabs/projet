@@ -31,7 +31,7 @@ export default {
             .then(function(response, vueElem) {
                 var data = response.data;
                 console.log(response);
-                data.forEach(function(element) {
+                data.deal.forEach(function(element) {
                     self.$data.dealsIDs.push(element["_id"]);
                 });
                 //self.$data.IDs.add()

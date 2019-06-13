@@ -11,7 +11,7 @@
                         <button v-on:click="createComment">SEND</button>
                     </div>
                     <div v-else>
-                        <router-link :to="{ name: 'SignIn' }">
+                        <router-link :to="{ name: 'LoginPage' }">
                             <input style="cursor:pointer;" type="text" placeholder="Connecte toi pour commenter :" class="form-control">
                             <button v-on:click="createComment"><i class="far fa-paper-plane"></i></button>
                         </router-link>

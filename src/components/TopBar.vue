@@ -69,6 +69,12 @@ export default {
         },
         delete_cookie: function(name) {
             document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            if(window.location.href === "http://localhost:8080/#/home") {
+                location.reload();
+            }
+            else {
+                window.location.replace("http://localhost:8080/#/home");
+            }
         }
     },
     data: function() {

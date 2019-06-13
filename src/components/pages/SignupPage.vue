@@ -50,6 +50,7 @@ export default {
             this.axios.post(url, qs.stringify(requestBody), config)
             .then(function(response, vueElem) {
                 console.log(response);
+                window.location.replace("http://localhost:8080/#/home");
             }).catch(function(error) {
             console.log(error);
             });
