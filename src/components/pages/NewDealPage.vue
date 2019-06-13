@@ -45,7 +45,19 @@ export default {
             let link = document.getElementById('link').value;
             let username = this.getCookieValue('username');
             let description = document.getElementById('description').value;
-            let img = document.getElementById('image').value;
+            let img = document.getElementById('image').files[0];            
+
+            var bodyFormData = new FormData();
+            bodyFormData.set('name', title);
+            bodyFormData.set('prix', price);
+            bodyFormData.set('description', description);
+            bodyFormData.set('username', username);
+            bodyFormData.set('dateFin', expiration);
+            bodyFormData.set('lien', link);
+            bodyFormData.append('image', img);
+            
+
+
             
             const requestBody = {
                 name: title,
@@ -54,24 +66,41 @@ export default {
                 username: username,
                 dateFin: expiration,
                 lien: link,
-                img: img
+                picture: img
             }
 
             const config = {
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'multipart/form-data'
                 }
             }
 
             const url = "http://localhost:8282/create";
 
             let self = this;
-            this.axios.post(url, qs.stringify(requestBody), config)
+            /*this.axios.post(url, bodyFormData, config)
             .then(function(response, vueElem) {
                 console.log(response);
+                window.location.replace("http://localhost:8080/#/home");
             }).catch(function(error) {
             console.log(error);
-            });
+            });*/
+
+
+            this.axios({
+                method: 'post',
+                url: url,
+                data: bodyFormData,
+                config: { headers: {'Content-Type': 'application/x-www-form-urlencoded','mimeType':"multipart/form-data" }}
+                })
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                })
+                .catch(function (response) {
+                    //handle error
+                    console.log(response);
+                });
         },
         getImagesFromUrl: function() {
             

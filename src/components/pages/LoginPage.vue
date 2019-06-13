@@ -72,6 +72,8 @@ export default {
                 console.log(response);
                 self.$data.username = response.data.username;
                 self.createCookie();
+                window.location.replace("http://localhost:8080/#/home");
+                
             }).catch(function(error) {
             console.log(error);
             });

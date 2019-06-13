@@ -2,7 +2,7 @@
     <div class="deal-summary">
         <div class="deal-summary-container">
             <div class="deal-summary-image">
-                <img src="../assets/image.png">
+                <img v-bind:src="imgPreUrl+pic">
             </div>
             <div class="deal-summary-informations">
                 <div class="deal-summary-title">
@@ -66,6 +66,7 @@ export default {
                 self.$data.expiration = data.dateFin;
                 self.$data.link = data.lien;
                 self.$data.votes = data.compteur;
+                self.$data.pic = data.picture;
 
                 let matches = data.lien.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
                 let shop = matches && matches[1];  // domain will be null if no match is found
@@ -122,7 +123,9 @@ export default {
             username: "Utilisateur",
             expiration: "",
             votes: "",
-            description: ""
+            description: "",
+            imgPreUrl: "http://localhost:8282/uploads/",
+            pic: ""
         }
     }
 }
