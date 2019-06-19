@@ -3,30 +3,36 @@
         <div class="deal-header">
             <div class="deal-header-container">
                 <div class="deal-header-image">
-                    <img src="../../assets/image.png">
+                    <img id="displayImage" src="../../assets/image.png">
                 </div>
                 <div class="deal-header-informations">
                     <div class="deal-header-title">
-                        <input id="title" type="text" placeholder="Titre de votre annonce..."/>
+                        <label for="title">Titre de votre annonce</label>
+                        <input id="title" type="text" placeholder="Donnez un nom à votre deal"/>
                     </div>
                     <div class="deal-header-price">
-                        <input id="price" type="number" placeholder="Prix..."/>€<!-- <input type="text" placeholder="00,00"/>€-->
+                        <label for="price">Prix du produit (€)</label>
+                        <input id="price" type="number" placeholder="€"/><!-- <input type="text" placeholder="00,00"/>€-->
                     </div>
                     <div class="deal-header-poster">
-                        <!--<img src="../../assets/julien.jpg" alt=""><span><input disabled type="text" placeholder="Utilisateur"/> ---> Expire le:  <input id="expiration" type="date" placeholder="Expire le:"/></span>
+                        <label for="expiration">Expire le :</label>
+                        <input id="expiration" type="date" placeholder="Expire le:"/></span>
                     </div>
-                    <div class="col-md-12">
-                        <div class="expand-button">
-                            <input id="link" type="text" placeholder="URL de l'offre"/>
-                        </div>
+                    <div class="deal-header-poster">
+                        <label for="link">URL de l'offre :</label>
+                        <input id="link" type="text" placeholder="Renseignez l'URL de l'offre"/>
+                    </div>
+                    <div class="deal-header-poster">
+                        <label for="description">Description :</label>
+                        <textarea id="description" type="text" placeholder="Décrivez votre annonce pour la communauté"></textarea>
+                    </div>
+                    <div class="deal-header-poster">
+                        <label for="image">Image d'illustration :</label>
+                        <input v-on:change="readURL()" accept=".png, .jpg, .jpeg" id="image" name="file" type="file">
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 description-container">
-                <textarea id="description" type="text" placeholder="Décrivez votre annonce..."></textarea>
-            </div>
         </div>
-        <input accept=".png, .jpg, .jpeg" id="image" name="file" type="file">
         <div class="round-send-button" v-on:click="this.getFormData">
             <img src="../../assets/send.png" alt="">
         </div>
@@ -38,6 +44,18 @@ const qs = require('qs')
 
 export default {
     methods: {
+        readURL: function() {
+            var input = event.target;
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.querySelector('#displayImage').src = e.target.result;
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
         getFormData: function() {
             let title = document.getElementById('title').value;
             let price = document.getElementById('price').value;
@@ -45,7 +63,7 @@ export default {
             let link = document.getElementById('link').value;
             let username = this.getCookieValue('username');
             let description = document.getElementById('description').value;
-            let img = document.getElementById('image').files[0];            
+            let img = document.getElementById('image').files[0];       
 
             var bodyFormData = new FormData();
             bodyFormData.set('name', title);
@@ -55,9 +73,6 @@ export default {
             bodyFormData.set('dateFin', expiration);
             bodyFormData.set('lien', link);
             bodyFormData.append('image', img);
-            
-
-
             
             const requestBody = {
                 name: title,
@@ -95,15 +110,13 @@ export default {
                 })
                 .then(function (response) {
                     //handle success
+                    window.location.replace("http://localhost:8080/#/home");
                     console.log(response);
                 })
                 .catch(function (response) {
                     //handle error
                     console.log(response);
                 });
-        },
-        getImagesFromUrl: function() {
-            
         },
         getCookieValue: function(name) {
             var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
@@ -156,7 +169,6 @@ export default {
 
     .deal-header-container .col-md-12 {
         padding:0;
-        border-bottom: 0.1px solid gainsboro;
     }
 
     .deal-header-container hr {
@@ -182,7 +194,7 @@ export default {
     }
 
     .deal-header-price input {
-        width:65px;
+        width:100px;
     }
 
     .deal-header-title {
@@ -191,7 +203,6 @@ export default {
     }
 
     .deal-header-title > input {
-        font-size: 22px
     }
 
     .deal-header-price {
@@ -234,10 +245,7 @@ export default {
 
     .deal-header-poster {
         width:100%;
-        margin-top:8px;
         float: left;
-        padding-bottom: 10px;
-        border-bottom: 0.1px solid gainsboro;
     }
 
     .deal-header-poster > img {
@@ -253,14 +261,12 @@ export default {
 
     .deal-header-votes {
         padding: 0;
-        margin-top: 10px;
         float: left;
     }
 
     .deal-header-votes span {
         font-size: 25px;
         float: left;
-        margin-top: -3px;
         padding-left:12px;
         padding-right: 12px;
     }
@@ -347,19 +353,40 @@ export default {
     }
 
     input {
-        border:none;
+        display: block;
+    width: 100%;
+    background: transparent;
+    font-size: 18px;
+    color: #333333;
+    line-height: 1.2;
+    padding: 0 10px;
+    outline: none;
+    border: none;
+        border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    height:50px;
     }
 
     input:focus {
-        outline:none;
     }
 
     textarea {
-        border:none;
-        height:50vh;
+            display: block;
+    width: 100%;
+    background: transparent;
+    font-size: 18px;
+    color: #333333;
+    line-height: 1.2;
+    padding: 0 10px;
+    outline: none;
+    border: none;
+        border: 1px solid #e6e6e6;
+    border-radius: 2px;
+    margin-bottom: 20px;
+        height:20vh;
     }
 
     textarea:focus {
-        outline:none;
     }
 </style>

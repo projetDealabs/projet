@@ -45,6 +45,8 @@
 </template>
 
 <script>
+const qs = require('qs')
+
 export default {
     props: ['idDeal','editable'],
     mounted: function() {
@@ -75,36 +77,63 @@ export default {
             console.log(error);
             });
         },
-        upvote: function() {
-            let self = this;
-            let id = this.idDeal;
-            this.axios.get("http://localhost:8282/up/"+id, {
-
-            })
-            .then(function(response, vueElem) {
-                console.log(response);
-                self.$data.votes = response.data.compteur; 
-            }).catch(function(error) {
-            console.log(error);
-            });
+        getCookieValue: function(name) {
+            var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+            return b ? b.pop() : '';
         },
-        downvote: function() {
-            let self = this;
-            let id = this.idDeal;
-            this.axios.get("http://localhost:8282/down/"+id, {
+        upvote: function() {
+            if(this.getCookieValue("username") === null || this.getCookieValue("username") === undefined) {
+                return 0;
+            }
+            else {
+                let self = this;
+                let id = this.idDeal;
+                let username = this.getCookieValue("username");
+                
+                const requestBody = {
+                    "username": username
+                };
+                const config = {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                };
 
-            })
-            .then(function(response, vueElem) {
-                console.log(response);
-                self.$data.votes = response.data.compteur; 
-            }).catch(function(error) {
-            console.log(error);
-            });
+                this.axios.get("http://localhost:8282/up/"+id, qs.stringify(requestBody),config)
+                .then(function(response, vueElem) {
+                    console.log(response);
+                    self.$data.votes = response.data.compteur; 
+                }).catch(function(error) {
+                console.log(error);
+                });
+            }
+        },
+
+        downvote: function() {
+            if(this.getCookieValue("username") === null || this.getCookieValue("username") === undefined) {
+                return 0;
+            }
+            else {
+                let self = this;
+                let id = this.idDeal;
+                let username = this.getCookieValue("username")
+                this.axios.get("http://localhost:8282/down/"+id, {
+                    params: {
+                        username: username
+                    }
+                })
+                .then(function(response, vueElem) {
+                    console.log(response);
+                    self.$data.votes = response.data.compteur; 
+                }).catch(function(error) {
+                console.log(error);
+                });
+            }
         },
         delete: function() {
             let self = this;
             let id = this.idDeal;
-            this.axios.get("http://localhost:8282/supp/"+id, {
+            this.axios.delete("http://localhost:8282/supp/"+id, {
 
             })
             .then(function(response, vueElem) {

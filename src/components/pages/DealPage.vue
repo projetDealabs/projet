@@ -3,7 +3,7 @@
         <div class="deal-header">
             <div class="deal-header-container">
                 <div class="deal-header-image">
-                    <img src="../../assets/image.png">
+                    <img v-bind:src="imgPreUrl+pic">
                 </div>
                 <div class="deal-header-informations">
                     <div class="deal-header-title">
@@ -13,7 +13,7 @@
                         <span class="price">{{ price }}€</span> <span class="shipping"><!--+5,99€--> | sur {{ shop }}</span> 
                     </div>
                     <div class="deal-header-poster">
-                        <img src="../../assets/julien.jpg" alt=""> <span><b>{{ user }}</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
+                        <img src="../../assets/julien.jpg" alt=""> <span><b>{{ username }}</b><!-- - Publié il y a 3 jours--> - Expire le {{ expiration.substring(0,10) }}</span>
                     </div>
                     <div class="col-md-12">
                         <div class="deal-header-votes col-md-6">
@@ -76,8 +76,10 @@ export default {
                 self.$data.price = data.prix;
                 self.$data.description = data.description;
                 self.$data.expiration = data.dateFin;
+                self.$data.username = data.username;
                 self.$data.link = data.lien;
                 self.$data.votes = data.compteur;
+                self.$data.pic = data.picture;
 
                 let matches = data.lien.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
                 let shop = matches && matches[1];  // domain will be null if no match is found
@@ -120,10 +122,12 @@ export default {
             price: "€",
             shop: "micromania.fr",
             link: "",
-            user: "Utilisateur",
+            username: "",
             expiration: "",
             votes: "0",
-            description: ""
+            description: "",
+            imgPreUrl: "http://localhost:8282/uploads/",
+            pic: ""
         }
     }
 }
