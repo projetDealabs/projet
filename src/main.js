@@ -59,9 +59,10 @@ const router = new VueRouter({
 })
 
 /* eslint-disable no-new */
-new Vue({
+var vm = new Vue({
     el: '#app',
     router,
     components: { App },
     template: '<App/>'
-})
+});
+global.vm = vm;

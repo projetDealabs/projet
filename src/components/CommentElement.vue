@@ -2,7 +2,7 @@
     <div class="comments-element">
         <div class="comment-header">
             <!--<img class="comment-pic" src="">-->
-            <span class="comment-author"><b>{{ author }}</b> <small>le {{ date }}</small></span>
+            <span class="comment-author"><b>{{ author }}</b> <small>le {{ date.substring(0,10) }}</small></span>
         </div>
         <div class="comment-content">
             <p>{{ message }}</p>
@@ -48,12 +48,11 @@ export default {
 .comment-header .comment-author {
   margin:0;
   padding-top: 5px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 .comment-content {
-    font-size:18px;
-    padding-left: 50px;
+    font-size:15px;
 }
 
 .comment-content p {

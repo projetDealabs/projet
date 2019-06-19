@@ -66,6 +66,7 @@ export default {
             this.axios.get(url, qs.stringify(requestBody), config)
             .then(function(response, vueElem) {
                 self.$data.commentsData = response.data.comments;
+                self.$data.numberComments = response.data.comments.length;
             }).catch(function(error) {
             console.log(error);
             });
@@ -92,6 +93,7 @@ export default {
             this.axios.post(url, qs.stringify(requestBody), config)
             .then(function(response, vueElem) {
                 console.log(response);
+                self.$router.go(0);
             }).catch(function(error) {
             console.log(error);
             });

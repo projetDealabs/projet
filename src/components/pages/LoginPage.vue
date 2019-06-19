@@ -8,7 +8,7 @@
                 <label for="login" style="float: left;margin-left: 25px;">Login</label>
                 <input class="form-control form-control-lg" type="text" placeholder="Votre login" id="login">
                 <label for="password" style="float: left;margin-left: 25px;">Mot de passe</label>
-                <input class="form-control form-control-lg" type="text" placeholder="Votre mot de passe" id="password">
+                <input class="form-control form-control-lg" type="password" placeholder="Votre mot de passe" id="password">
 
                 <router-link :to="{ name: 'SignupPage', params: {} }">
                     Vous n'avez pas de compte ? Cliquez ici.

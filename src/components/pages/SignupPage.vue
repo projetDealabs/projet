@@ -10,7 +10,7 @@
                 <label for="mail" style="float: left;margin-left: 25px;">Mail</label>
                 <input class="form-control form-control-lg" type="text" placeholder="Votre mail" id="mail">
                 <label for="password" style="float: left;margin-left: 25px;">Mot de passe</label>
-                <input class="form-control form-control-lg" type="text" placeholder="Votre mot de passe" id="password">
+                <input class="form-control form-control-lg" type="password" placeholder="Votre mot de passe" id="password">
                 
                 <router-link :to="{ name: 'LoginPage', params: {} }">
                     Vous avez déjà un compte ? Cliquez ici.

@@ -33,8 +33,8 @@
                                 <span>{{ username }}</span>
                             </div>
                         </router-link>
-                        <div class="newdeal-button">
-                            <span v-on:click="delete_cookie('username')">X</span>
+                        <div class="close-button">
+                            <span v-on:click="delete_cookie('username')">&times;</span>
                         </div>
                         
                     </div>
@@ -163,5 +163,18 @@ export default {
         text-decoration: none;
     }
 
+    .topbar-newdeal .close-button {
+        height:40px;
+        margin:auto;
+        border-radius:10px;
+        background-color:#50B9FF;
+        width: 100%;
+        max-width: 125px;
+        cursor:pointer;
+        display: flex;
+        padding: 10px;
+        margin-top:10px;
+        margin-left:18px;
+    }
     
 </style>
